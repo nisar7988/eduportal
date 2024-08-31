@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "server": "node main.js",
+    "client": "react-scripts start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,249 @@
+*{
+  /* background-color: #007bff; */
+  color: rgba(3, 1, 66, 255);
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+#form{
+  padding: 5rem;
+}
+@media screen and (max-width: 770px) {
+  /* Your CSS styles here */
+  #cover {
+   display: none;
+  }
+  #container{
+    height: 45rem;
+  }
+  #form{
+    margin-top: 10rem;
+    padding : 0;
+  }
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: transparent;
+  color: rgba(3, 1, 66, 255);
+  /* Or match the border color to the background */
+}
+.form-control:focus {
+  border-bottom: 2px solid rgba(0,187,167,255); /* Or any color you prefer */
+  outline: none;
+  color: rgba(3, 1, 66, 255);
+}
+/* src/Calendar.css */
+.calendar {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header button {
+  background-color: rgba(192, 192, 217, 255);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header button:hover {
+  background-color: rgba(192, 192, 217, 255);
+}
+
+.month {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.days-of-week {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.day-name {
+  width: 14.28%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day,
+.empty {
+  width: 14.28%;
+  height: 0;
+  padding-bottom: 14.28%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px 0;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  /* top:3rem */
+}
+
+.day:hover {
+  background-color: rgba(192, 192, 217, 255);
+  color: white;
+}
+
+.day:after,
+.empty:after {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.day.today {
+  background-color: rgba(192, 192, 217, 255);
+  color: white;
+  font-weight: bold;
+  /* border: 2px solid #d9534f; */
+}
+
+.day,
+.empty {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  padding: 1.8rem 0;
+  /* margin: 0 0.02rem; */
+}
+
+/* Transparent background */
+.login-input, .form-control {
+  background-color: transparent !important;
+  /* Ensure the input background is transparent */
+  box-shadow: none !important;
+  outline: none !important;
+  /* color: red !important; */
+    color: rgba(3, 1, 66, 255) !important;
+  /* Remove any box shadow */
+  /* border: none !important; */
+  /* Remove any border */
+}
+
+/* Hover State */
+
+
+/* Focus State */
+.login-input, .form-control:focus {
+  background-color: transparent !important;
+  /* Transparent background on focus */
+  /* border: none !important; */
+  /* No border on focus */
+  /* input */
+  color: rgba(3, 1, 66, 255) !important;
+  /* color: red !important; */
+  box-shadow: none !important;
+  /* No box shadow on focus */
+  /* outline: none !important; */
+  /* Remove the outline on focus */
+}
+.login-input:focus{
+  outline:none !important;
+  box-shadow: none !important;
+  color: rgba(3, 1, 66, 255) !important;
+  /* color: red !important; */
+  border-bottom: white 1px ;
+}
+/* After Focus (When the input has value) */
+.login-input .form-floating:focus-within .form-label {
+  /* color: #007bff; */
+  /* color: rgba(3, 1, 66, 255) !important; */
+  color: red !important;
+  /* Change label color after focus */
+}
+
+/* Remove the white background of the label */
+::after {
+  background-color: transparent !important;
+  padding: 0 0.25rem;
+  
+}
+
+@media (max-width: 480px) {
+  .header button {
+    padding: 5px 8px;
+    font-size: 0.8em;
+  }
+
+  .month {
+    font-size: 1em;
+  }
+
+  .day,
+  .empty {
+    width: 12.5%;
+    padding-bottom: 12.5%;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .calendar {
+    max-width: 320px;
+  }
+}
+
+
+/* Assuming your bgColor is the desired background color */
+.dropdown-menu{
+  padding: 0 !important;
+}

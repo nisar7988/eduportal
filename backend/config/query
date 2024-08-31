@@ -1,0 +1,38 @@
+INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `address`, `phone_number`, `email`, `aadhar_number`, `photo`, `employee_id`, `designation`, `status`, `assigned_classes`, `assigned_subjects`, `user_name`, `password`, `emergency_contact_name`, `emergency_contact_number`, `blood_group`) VALUES (NULL, 'Renu', 'Malhal', '19/06/1995', 'Female', 'MIG -5, opposite Anand Nath Shiv Mandir, Kankarbagh Colony More, RBI Flats Colony, Bankman Colony, Patna, Bihar 800020, India', '+91 9111560165 ', 'Renumalhal143@gmail.com', '951255483750', NULL, 'Renu3750', 'class teacher', 'Active', '6', 'math', 'Renu', 'Renu@123', '8986753462', '7865432567', 'AB+');
+
+// for create class table 
+CREATE TABLE class_sixth (
+    roll_number INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    section CHAR(1) NOT NULL,
+    student_id VARCHAR(255) NOT NULL,
+    subjects VARCHAR(255),
+    address VARCHAR(255),
+    father_name VARCHAR(100),
+    mother_name VARCHAR(100),
+    phone_number VARCHAR(15),
+    email VARCHAR(100)
+);
+
+// for insert in class table
+INSERT INTO class_sixth
+(`name`,`gender`,`section`,`student_id`,`subjects`,`address`,`father_name`, `mother_name`,`phone_number`,`email`)
+                         VALUES(?,?,?,?,?,?,?,?,?,?);
+
+//query to find the class of their teacherSELECT assigned_classes
+SELECT class_name FROM class_manage
+LEFT JOIN teachers ON teachers.employee_id = class_manage.coordinator_id
+WHERE teachers.employee_id="Renu3750";
+
+
+INSERT INTO leave_form `user_name`, `first_Date`, `last_Date`, `Reason`, `phone`
+VALUES(?,?,?,?,?);
+
+
+key name : - jaagugour142@gmail.com
+key password : - btnd fyzy mpvh igvz
+
+for create a table same as existting one.
+CREATE TABLE students_left_school AS
+SELECT * FROM students WHERE 1=0;
