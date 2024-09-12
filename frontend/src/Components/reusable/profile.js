@@ -8,7 +8,7 @@ function Profile(props) {
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
         <Card.Text>
-          {props.sub} teacher
+          {props.sub} Teacher
         </Card.Text>
         <Card.Text>
           {props.contact} 

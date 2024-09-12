@@ -12,25 +12,25 @@ export const StudentBodyContent = () => {
   const CardData = [
     {
       icon: <FaUser />,
-      title: "view Profile",
+      title: "View Profile",
       body: "want to edit profile.",
       path: "/student/viewprofile",
     },
     {
       icon: <PiStudentFill />,
-      title: "view teachers",
+      title: "View Teachers",
       body: "want to edit students",
       path: "/student/viewteachers",
     },
     {
       icon: <FaRegCalendarAlt />,
-      title: "apply for leave",
+      title: "Apply For Leave",
       body: "see today",
       path: "/student/leave",
     },
     {
       icon: <IoTimeSharp />,
-      title: "timetable",
+      title: "Timetable",
       body: "view or edit timetable",
       path: "/student/timetable",
     },
@@ -49,7 +49,7 @@ export const StudentBodyContent = () => {
               return (
                 <Col
                   md={5}
-                  className="mt-5 mb-5"
+                  className="mt-5 mb-5 forcards"
                   key={item.title}
                   onClick={() => HandleCard(item.path)}
                 >

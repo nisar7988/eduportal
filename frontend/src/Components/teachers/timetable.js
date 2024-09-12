@@ -51,7 +51,7 @@ console.log(timetableitems);
           </thead>
           <thead>
             <tr>
-              <th>Class_id</th>
+              <th>Class</th>
               <th>08:30-09:15</th>
               <th>09:15-10:00</th>
               <th>10:00-10:45</th>

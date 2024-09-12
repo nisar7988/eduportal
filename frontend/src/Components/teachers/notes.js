@@ -1,10 +1,54 @@
 import Table from 'react-bootstrap/Table';
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { Container, Row, Col } from "react-bootstrap";
+import { useSelector} from "react-redux";
+import BootstrapTable from 'react-bootstrap-table-next';
 
 export const Notes = () => {
   // const [error, seterror] = useState('')
+  const Data1 = useSelector((state) => state.TeacherInfo.info);
+
+   const class_id = Data1 ? Data1.assigned_classes : "";
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let currentDate = `${day}-${month}-${year}`;
+    //    <td>{item.user_name}</td>
+    //               <td>{item.class_id}</td>
+    //               <td>{item.phone}</td>
+    //               <td>{item.Reason}</td>
+    //               <td>{item.first_Date}</td>
+    //               <td>{item.last_Date}</td>
+    const Value = [
+      {
+        dataField: "class_id",
+        text: "Class",
+      },
+      {
+         dataField : "user_name",
+         text:"Studend Id"
+      },
+      {
+        dataField: "phone",
+        text: "Phone",
+      },
+      {
+        dataField: "Reason",
+        text: "Reason",
+      },
+      {
+        dataField: "first_Date",
+        text: "First Day of Absence",
+      },
+      {
+        dataField: "last_Date",
+        text: "Last Day of Absence",
+      },
+    
+    ];
+
   const [data , setdata ] = useState([]);
   useEffect(()=>{
     getLeaveFormData();
@@ -16,8 +60,7 @@ export const Notes = () => {
        setdata(response.data)
      }
      catch(err){
-      // alert(err);
-      // seterror('')
+ 
       console.log(err.message);
      }
   }
@@ -25,40 +68,28 @@ console.log(data);
 
   return (
     <>
+    <Container className="icon py-2">
+      <Row>
+        <Col md="10">
+          <p>
+          
+          </p>
+        </Col>
+        <Col>
+          <b>Date</b> : {currentDate}
+        </Col>
+      </Row>
+    <Row className='mt-3'>
 
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Class</th>
-          <th>Phone</th>
-          <th>Reason</th>
-          <th>First Day of absence</th>
-          <th>Last Day of absence</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-            data.map((item,index)=>{
-              return (
-                <tr>
-                  <td>{item.user_name}</td>
-                  <td>{item.class_id}</td>
-                  <td>{item.phone}</td>
-                  <td>{item.Reason}</td>
-                  <td>{item.first_Date}</td>
-                  <td>{item.last_Date}</td>
-                </tr>
-              );
-            })
-        
-         
-        }
-      
-      </tbody>
-    </Table>
-  
+   <BootstrapTable keyField='user_name' data={data} columns={Value} />
+    </Row>
 
+
+
+
+
+
+</Container>
 export default BasicExample;
     </>
   );

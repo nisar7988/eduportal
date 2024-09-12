@@ -7,10 +7,14 @@ import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import CloseButton from "react-bootstrap/CloseButton";
 import { useNavigate } from "react-router-dom";
+import Alerts from "../reusable/alerts";
 export const StudentsofSeventhclass = () => {
   const [studentsdata, setstudentsdata] = useState([]);
   //function for get all the students information which is in 6th class.
   const navigate = useNavigate();
+  const [alertColor, setAlertColor] = useState("");
+  const [alertText, setAlertText] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
   async function getstudentinfo() {
     try {
       const response = await axios.get("/student/getclasswisestudents", {
@@ -31,7 +35,7 @@ export const StudentsofSeventhclass = () => {
   const admininfo = useSelector((state) => state.AdminInfo.admininfo);
   useEffect(() => {
     getstudentinfo();
-  }, []);
+  }, [showAlert]);
 
   // Function to handle button click
   const handleButtonClick = (student) => {
@@ -40,7 +44,18 @@ export const StudentsofSeventhclass = () => {
     console.log(student.user_name);
     console.log(student.class);
 
-    removeStudent(student);
+    // removeStudent(student);
+     removeStudent(student);
+     setShowAlert(true);
+     setAlertColor("success");
+     setAlertText("Student Remove Successfully!");
+     setTimeout(() => {
+       setShowAlert(false);
+     }, 3000);
+
+
+
+
   };
 
   //request for delete student
@@ -54,10 +69,18 @@ export const StudentsofSeventhclass = () => {
       console.log(response);
     } catch (error) {
       console.log(error);
+       setShowAlert(true);
+       setAlertColor("danger");
+       setAlertText("Error to Remove Student !");
+       setTimeout(() => {
+         setShowAlert(false);
+       }, 3000);
+
     }
   }
 
   const columns = [
+    
     {
       dataField: "email",
       text: "Email",
@@ -84,7 +107,7 @@ export const StudentsofSeventhclass = () => {
     },
     {
       dataField: "user_name",
-      text: "user_name",
+      text: "User Name",
     },
     {
       dataField: "password",
@@ -92,7 +115,7 @@ export const StudentsofSeventhclass = () => {
     },
     {
       dataField: "father_name",
-      text: "father_name",
+      text: "Father Name",
     },
     {
       dataField: "Remove student",
@@ -100,8 +123,8 @@ export const StudentsofSeventhclass = () => {
       formatter: (cellContent, row) => {
         return (
           <button
-            className="btn btn-primary"
-            style={{ backgroundColor: "rgba(0,187,167,255)", border: "none" }}
+            className="btn btn-primary bg-danger"
+            style={{ border: "none" }}
             onClick={() => handleButtonClick(row)}
           >
             Remove
@@ -115,10 +138,12 @@ export const StudentsofSeventhclass = () => {
      navigate("/admin/viewstudents");
    }
   return (
-    <Container className="text-black bg-success" fluid>
+    <>
       <Row>
         <AdminNavBar />
       </Row>
+      {showAlert ? <Alerts color={alertColor} text={alertText} /> : ""}
+    <Container className="text-black " fluid>
       <Row className="my-2">
         <h3 className="w-75"> Welcome {admininfo.name}</h3>
         <CloseButton
@@ -135,5 +160,6 @@ export const StudentsofSeventhclass = () => {
         />
       </Row>
     </Container>
+    </>
   );
 };

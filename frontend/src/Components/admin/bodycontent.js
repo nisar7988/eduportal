@@ -11,13 +11,13 @@ export const AdminBodyContent = () => {
   const CardData = [
     {
       icon: <FaUser />,
-      title: "view Profile",
+      title: "View Profile",
       body: "want to edit profile.",
       path: "/admin/viewprofile",
     },
     {
       icon: <PiStudentFill />,
-      title: "view students",
+      title: "View Students",
       body: "want to edit students",
       path: "/admin/viewstudents",
     },
@@ -29,7 +29,7 @@ export const AdminBodyContent = () => {
     },
     {
       icon: <IoTimeSharp />,
-      title: "timetable",
+      title: "Timetable",
       body: "view or edit timetable",
       path: "/admin/timetable",
     },
@@ -48,7 +48,7 @@ export const AdminBodyContent = () => {
               return (
                 <Col
                   md={5}
-                  className="mt-5 mb-5"
+                  className="mt-5 mb-5 forcards"
                   key={item.title}
                   onClick={() => HandleCard(item.path)}
                 >

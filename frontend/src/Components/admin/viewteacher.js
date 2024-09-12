@@ -56,7 +56,7 @@ export const ViewTeacherInfo = () => {
   const columns = [ 
     {
       dataField: "employee_id",
-      text: "user_name",
+      text: "User Name",
     },
     {
       dataField: "password",
@@ -72,11 +72,11 @@ export const ViewTeacherInfo = () => {
     },
     {
       dataField: "assigned_classes",
-      text: "Assigned_class",
+      text: "Assigned Class",
     },
     {
       dataField: "assigned_subjects",
-      text: "Assigned_subjects",
+      text: "Assigned Subjects",
     },
     {
       dataField: "designation",
@@ -84,7 +84,7 @@ export const ViewTeacherInfo = () => {
     },
     {
       dataField: "emergency_contact_number",
-      text: "Emergency_number",
+      text: "Emergency Number",
     },
     {
       dataField: "Remove teacher",
@@ -92,8 +92,8 @@ export const ViewTeacherInfo = () => {
       formatter: (cellContent, row) => {
         return (
           <button
-            className="btn btn-primary text-center"
-            style={{ backgroundColor: "rgba(0,187,167,255)", border: "none"}}
+            className="btn btn-primary text-center bg-danger"
+            style={{ border: "none" }}
             onClick={() => handleButtonClick(row)}
           >
             Remove
@@ -107,7 +107,7 @@ export const ViewTeacherInfo = () => {
     navigate("/admin/");
   }
   return (
-    <Container className="text-black bg-success" fluid>
+    <Container className="text-black" fluid>
       <Row>
         <AdminNavBar />
       </Row>

@@ -1,29 +1,36 @@
-// import Button from 'react-bootstrap/Button';
-// import Col from 'react-bootstrap/Col';
+
 import Form from "react-bootstrap/Form";
-// import Row from 'react-bootstrap/Row';
 import { Container, Row, Col } from "react-bootstrap";
-// import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import profileimage from "../../Assets/mathteacher.jpg";
+import profileimage from "../../Assets/physicsteacher.jpg";
 import { useSelector } from "react-redux";
-// import { useState } from 'react';
-// import { useSelector } from "react-redux";
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+
 
 export function ViewAdminProfile() {
-  //  const [login,setLogin] =useState(true)
-  //   const isValid = useSelector((state) => state.LogIn.isValid);
   const Data = useSelector((state) => state.AdminInfo.admininfo);
+  const userId = Data ? Data.username : "";
+   const [imagePath, setImagePath] = useState("");
+   const [error, setError] = useState("");
 
-  // const navigate = useNavigate();
-  // useEffect(()=>{
-  //   setLogin(isValid)
 
-  //   if(!login)
-  //   navigate("/login");
-  // },[login,navigate,isValid])
+      useEffect(() => {
+        const fetchImagePath = async () => {
+          try {
+            const res = await axios.get(
+              `/upload/getImageByStudentId/${userId}`
+            );
+            console.log(res.data);
+            setImagePath(res.data.filePath); // assuming the API response has filePath
+          } catch (err) {
+            setError("Failed to fetch image");
+          }
+        };
+        fetchImagePath();
+      }, [imagePath]);
+
 
   console.log(Data);
 
@@ -32,7 +39,7 @@ export function ViewAdminProfile() {
       <Row>
         <Col md="6">
           <Card>
-            <Card.Img variant="top" src={profileimage} />
+            <Card.Img variant="top" src={imagePath} />
             <Card.Body>
               <Card.Title>{Data ? `${Data.name}` : ""}</Card.Title>
               <Card.Text>Admin</Card.Text>
@@ -43,7 +50,7 @@ export function ViewAdminProfile() {
           <Form>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridusername">
-                <Form.Label>username</Form.Label>
+                <Form.Label>User Name</Form.Label>
                 <Form.Control
                   type="text"
                   value={Data ? Data.username : ""}
@@ -54,7 +61,7 @@ export function ViewAdminProfile() {
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="password"
+                  type="text"
                   placeholder="Password"
                   value={Data ? Data.password : ""}
                   disabled
@@ -71,18 +78,18 @@ export function ViewAdminProfile() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGridAddress1">
-              <Form.Label>Address</Form.Label>
+              <Form.Label>Correspondence Address</Form.Label>
               <Form.Control value={Data ? Data.address1 : ""} disabled />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridAddress2">
-              <Form.Label>Address 2</Form.Label>
+              <Form.Label>Permanent Address</Form.Label>
               <Form.Control value={Data ? Data.address2 : ""} disabled />
             </Form.Group>
 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Aadhar number </Form.Label>
+                <Form.Label>Aadhar Number </Form.Label>
                 <Form.Control
                   value={Data ? Data.aadhaar_card_number : ""}
                   disabled
@@ -90,7 +97,7 @@ export function ViewAdminProfile() {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>zip Code</Form.Label>
+                <Form.Label>Zip Code</Form.Label>
                 <Form.Control value={Data ? Data.zipcode : ""} disabled />
               </Form.Group>
             </Row>
@@ -100,7 +107,7 @@ export function ViewAdminProfile() {
             </Form.Group>
             <Row>
               <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Phone number </Form.Label>
+                <Form.Label>Phone Number </Form.Label>
                 <Form.Control value={Data ? Data.phone_number1 : ""} disabled />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridState">

@@ -1,24 +1,21 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export function Modal_ex() {
+export function Modals(props) {
+  const {cancle,saveChanges} = props;
+  console.log(cancle,saveChanges)
   return (
     <div
-      className="modal show"
+      className="modal show z-n5 position-absolute p-5"
       style={{ display: "block", position: "initial" }}
     >
       <Modal.Dialog>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>nukbu ykg</Modal.Title>
         </Modal.Header>
-
-        <Modal.Body>
-          <p>Modal body text goes here.</p>
-        </Modal.Body>
-
         <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
+          <Button variant="secondary" >Cencle</Button>
+          <Button className="button" >Save changes</Button>
         </Modal.Footer>
       </Modal.Dialog>
     </div>

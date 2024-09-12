@@ -13,7 +13,7 @@ export const TeacherHomePage = () => {
   });
   return (
     <>
-      <TeacherNavBar />
+      <TeacherNavBar  />
       <TeacherSideBar />
     
     </>

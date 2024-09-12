@@ -1,65 +1,85 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Container,Row ,Col } from "react-bootstrap";
-import Cards from "../reusable/card";
-import { Outlet,useNavigate } from "react-router-dom";
+import BootstrapTable from "react-bootstrap-table-next";
+
 export const ViewClasswiseAttendence = () =>{
 // export { Container } 
-   const navigate = useNavigate();
-   const classes = [
-     {
-       className: "6th",
-       teacherAssigned: "Renu",
-       path: "/admin/viewattendence_six",
-     },
-     {
-       className: "7th",
-       teacherAssigned: "Neha",
-       path: "/admin/viewattendence_seven",
-     },
-     {
-       className: "8th",
-       teacherAssigned: "Renu",
-       path: "/admin/viewattendence_eight",
-     },
-     {
-       className: "9th",
-       teacherAssigned: "Vikram",
-       path: "/admin/viewattendence_nine",
-     },
-     {
-       className: "10th",
-       teacherAssigned: "Amit Kumar",
-       path: "/admin/viewattendence_ten",
-     },
-   ];
+const [students, setstudents] = useState([])
+
+  useEffect(()=>{
+     viewLeftStudents();
+  },[])
 
 
-    function HandleCard(path) {
-      navigate(path);
-    }
+ async function viewLeftStudents(){
+  try{
+   const response = await axios('/student/leftstudents');
+   console.log(response.data)
+   setstudents(response.data)
+
+  }
+  catch(err){
+    console.log(err);
+  }
+
+
+ } 
+
+ const columns = [
+   {
+     dataField: "first_name",
+     text: "Name",
+    },
+    {
+      dataField: "father_name",
+      text: "Father name",
+    },
+    {
+      dataField: "email",
+      text: "Email",
+    },
+
+   {
+     dataField: "phone1",
+     text: "Ph number",
+   },
+   {
+     dataField: "class",
+     text: "Class",
+   },
+
+   {
+     dataField: "address1",
+     text: "Address",
+   },
+   {
+    dataField: "created_at",
+    text:'Date of Admission'
+   },
+   {
+    dataField: "Leave_date",
+    text:'Date of exit'
+   }
+
+ ];
+  
 
  return (
-    <>
-      {
-        <Container>
-          <Row>
-            {classes.map((item) => {
-              return (
-                <Col
-                  md={4}
-                  className="mt-5 mb-5"
-                  key={item.title}
-                  onClick={() => HandleCard(item.path)}
-                >
-                  <Cards title={item.teacherAssigned} icon={item.className} body={item.body} />
-                </Col>
-              );
-            })}
-          </Row>
-        </Container>
-      }
-      <Outlet />
-    </>
-  );
+   <>
+     {
+       <Container className="my-4">
+         <Row>
+           <BootstrapTable
+             keyField="user_name"
+             data={students}
+             columns={columns}
+           />
+         </Row>
+       </Container>
+     }
+   </>
+ );
 };
 
 

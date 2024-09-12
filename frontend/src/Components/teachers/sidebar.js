@@ -11,7 +11,11 @@ import { IoCalendarNumber } from "react-icons/io5";
 export const TeacherSideBar = () => {
   return (
     <>
-      <Container className="bg-black text-white " fluid>
+      <Container
+        className="bg-black text-white "
+        style={{ position: "relative" }}
+        fluid
+      >
         <Row>
           <Col md={3}>
             <Container>
@@ -25,23 +29,29 @@ export const TeacherSideBar = () => {
                   eventKey="/teacher/home"
                   className="text-white"
                 >
-                  <h5>
+                  <h5 className="text">
                     {" "}
-                    <IoIosHome className="mx-2" />
+                    <IoIosHome
+                      style={{ position: "relative", bottom: "0.2rem" }}
+                      className="mx-2"
+                    />
                     Home
                   </h5>
                 </Nav.Link>
-                <Nav.Link
+                {/* <Nav.Link
                   as={Link}
                   to="/teacher/editprofile"
                   className="text-white"
                 >
                   <h5>
                     {" "}
-                    <FaUserEdit className="mx-2 icon" />
+                    <FaUserEdit
+                      style={{ position: "relative", bottom: "0.2rem" }}
+                      className="mx-2"
+                    />
                     Edit Profile
                   </h5>
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link
                   as={Link}
                   to="/teacher/addstudents"
@@ -49,7 +59,10 @@ export const TeacherSideBar = () => {
                 >
                   <h5>
                     {" "}
-                    <PiStudentFill className="mx-2" />
+                    <PiStudentFill
+                      style={{ position: "relative", bottom: "0.2rem" }}
+                      className="mx-2"
+                    />
                     Add Student
                   </h5>
                 </Nav.Link>
@@ -62,8 +75,11 @@ export const TeacherSideBar = () => {
                   {" "}
                   <h5>
                     {" "}
-                    <MdEmail className="mx-2" />
-                    send mail
+                    <MdEmail
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
+                    Send Mail
                   </h5>
                 </Nav.Link>
                 <Nav.Link
@@ -75,8 +91,27 @@ export const TeacherSideBar = () => {
                   {" "}
                   <h5>
                     {" "}
-                    <FaUserCheck className="mx-2" />
-                    Attendence
+                    <FaUserCheck
+                      style={{ position: "relative", bottom: "0.2rem" }}
+                      className="mx-2"
+                    />
+                    Attendance
+                  </h5>
+                </Nav.Link>
+                <Nav.Link
+                  eventKey="link-2"
+                  as={Link}
+                  to="/teacher/uploadimage"
+                  className="text-white"
+                >
+                  {" "}
+                  <h5>
+                    {" "}
+                    <FaUserCheck
+                      style={{ position: "relative", bottom: "0.2rem" }}
+                      className="mx-2"
+                    />
+                    Upload Profile Image
                   </h5>
                 </Nav.Link>
                 <Nav.Link
@@ -89,26 +124,27 @@ export const TeacherSideBar = () => {
                   <h5>
                     {" "}
                     {/* <FaUserCheck className="mx-2" /> */}
-                    <IoCalendarNumber className="mx-2" />
-                    celender
+                    <IoCalendarNumber
+                      style={{ position: "relative", bottom: "0.2rem" }}
+                      className="mx-2"
+                    />
+                    Calendar
                   </h5>
                 </Nav.Link>
 
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 <Nav.Link
                   as={Link}
                   to="/login"
                   eventKey="disabled"
                   className="text-white"
+                  style={{ position: "absolute", bottom: "0" }}
                 >
                   <h5>
                     {" "}
-                    <LuLogOut className="mx-2" />
+                    <LuLogOut
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
                     Logout
                   </h5>
                 </Nav.Link>
@@ -120,6 +156,8 @@ export const TeacherSideBar = () => {
             className="px-3"
             style={{
               backgroundColor: "white",
+              height: "31.9rem",
+              overflow: "scroll",
             }}
           >
             {" "}

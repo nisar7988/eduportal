@@ -5,19 +5,19 @@ import { Col, Container, Row } from "react-bootstrap";
 import { IoTimeSharp } from "react-icons/io5";
 import { Outlet, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import { FcLeave } from "react-icons/fc";
+import { MdGroups } from "react-icons/md";
 export const TeacherBodyContent = () => {
   const navigate = useNavigate();
   const CardData = [
     {
       icon: <FaUser />,
-      title: "view Profile",
+      title: "View Profile",
       body: "want to edit profile.",
       path: "/teacher/viewprofile",
     },
     {
-      icon: <PiStudentFill />,
-      title: "view students",
+      icon: <MdGroups  />,
+      title: "View Students",
       body: "want to edit students",
       path: "/teacher/viewstudents",
     },
@@ -29,7 +29,7 @@ export const TeacherBodyContent = () => {
     },
     {
       icon: <IoTimeSharp />,
-      title: "timetable",
+      title: "Timetable",
       body: "view or edit timetable",
       path: "/teacher/timetable",
     },
@@ -43,13 +43,13 @@ export const TeacherBodyContent = () => {
   return (
     <>
       {
-        <Container>
+        <Container >
           <Row>
             {CardData.map((item) => {
               return (
                 <Col
                   md={5}
-                  className="mt-5 mb-5"
+                  className="mt-5 mb-5 forcards"
                   key={item.title}
                   onClick={() => HandleCard(item.path)}
                 >

@@ -5,15 +5,16 @@ import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 
+import Alerts from "../reusable/alerts";
 
 
 export const SendMail = () => {
   const Data = useSelector((state) => state.TeacherInfo.info);
   const teacher_name = Data ? `${Data.first_name} ${Data.last_name}` : "";
   const teacher_email = Data ? Data.email : "";
+
 
   const [parentEmails, setParentEmails] = useState("");
   const [meetingPurpose, setMeetingPurpose] = useState("Ptm");
@@ -22,6 +23,9 @@ export const SendMail = () => {
   const [time, setTime] = useState("");
   const [venue, setVenue] = useState("");
   const [errors, setErrors] = useState({});
+   const [alertColor, setAlertColor] = useState("");
+   const [alertText, setAlertText] = useState("");
+   const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -135,11 +139,6 @@ export const SendMail = () => {
           meetingPurpose === "other" ? customPurpose : meetingPurpose,
       };
 
-    //   console.log(emailInfo);
-      // Send emailInfo to your backend or wherever it's needed
-       <Alert  variant="primary">
-         This is a Primary alert—check it out!
-       </Alert>;
        sendEmail(emailInfo);
        
 
@@ -158,11 +157,23 @@ export const SendMail = () => {
 
        const response = await axios.post('/email/send-parent-email',emailInfo);
        console.log(response.data);
- 
+        setShowAlert(true);
+        setAlertColor("success");
+        setAlertText("Email Send Successfully!");
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 3000);
+       
 
    }
    catch(err){
     console.log(err);
+     setShowAlert(true);
+     setAlertColor("danger");
+     setAlertText("Error to send Mail !");
+     setTimeout(() => {
+       setShowAlert(false);
+     }, 3000);
    }
 
 
@@ -173,7 +184,9 @@ export const SendMail = () => {
 
 
   return (
-    <Container className="text-black p-3">
+    <>
+      {showAlert ? <Alerts color={alertColor} text={alertText} /> : ""}
+    <Container className="text-black p-3" fluid>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridEmail">
@@ -276,11 +289,12 @@ export const SendMail = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="primary" type="submit">
+        <Button className="button" type="submit">
           Submit
         </Button>
       </Form>
     </Container>
+  </>
   );
 };
 
@@ -291,11 +305,11 @@ export const SendMail = () => {
 // import { Container } from "react-bootstrap"
 // import { useSelector } from "react-redux"
 // export const SendMail = () =>{
-//     const Data = useSelector((state) => state.TeacherInfo.info);
+  //     const Data = useSelector((state) => state.TeacherInfo.info);
 //     const teacher_name =Data ? `${Data.first_name} ${Data.last_name}` : "";
 //     const teacher_email = Data ? Data.email : "";
 //      return (
-//        <>
+  //        <>
 //          <Container className="text-black p-3">
 //            <Form>
 //              <Row className="mb-3">

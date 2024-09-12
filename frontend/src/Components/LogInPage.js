@@ -12,9 +12,13 @@ import { valid } from "../store/reducer";
 import { changeinfo } from "../store/teacherinfoReducer";
 import { changeStudentinfo } from "../store/studentinfoReducer";
 import { changeAdmininfo } from "../store/admininfoReducer";
+import Alerts from "./reusable/alerts";
 export const LogInPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+   const [alertColor, setAlertColor] = useState("");
+   const [alertText, setAlertText] = useState("");
+   const [showAlert, setShowAlert] = useState(false);
   const [infoData, setInfoData] = useState([]);
   const [adminInfoData , setadminInfoData] = useState([]);
   const [username, setUserName] = useState("");
@@ -54,7 +58,16 @@ export const LogInPage = () => {
   function HandleSubmit(e) {
     // e.target.style.backgroundColor="red";
     if (username === "" || password === "" || role === undefined) {
-      alert("plaese fill details");
+      // alert("plaese fill details");
+     setShowAlert(true);
+      setAlertColor("danger");
+      setAlertText("Please Fill All The Details !");
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 2000);
+
+
+
     } else {
       try {
         axios
@@ -91,11 +104,13 @@ export const LogInPage = () => {
 
   return (
     <>
+
       <Container
         id="container"
         style={{ backgroundColor: "rgba(192,192,217,255)" }}
         fluid
-      >
+        >
+        {showAlert ? <Alerts color={alertColor} text={alertText}  /> : ""}
         <Row
           style={{
             margin: "0",
@@ -107,7 +122,7 @@ export const LogInPage = () => {
         >
           <Col md="6" id="cover">
             <img
-              src="Logo.jpg"
+              src="EduPortal.jpeg"
               alt=""
               style={{ height: "100%", width: "100%" }}
             />
@@ -116,7 +131,7 @@ export const LogInPage = () => {
             <h3>Log in</h3>
             <FloatingLabel
               controlId="floatingInput"
-              label="user name"
+              label="Username"
               className="mb-3 login-input"
             >
               <Form.Control
@@ -151,14 +166,14 @@ export const LogInPage = () => {
               onClick={HandleSelect}
             >
               <option disabled selected>
-               Login as 
+                Login as
               </option>
               <option value="student">Student</option>
               <option value="teacher">Teacher</option>
               <option value="admin">Admin</option>
             </Form.Select>
             <Button
-              className="w-75 my-4"
+              className="w-75 my-4 button"
               style={{
                 borderRadius: "3rem",
                 backgroundColor: "rgba(0,187,167,255)",
@@ -178,35 +193,3 @@ export const LogInPage = () => {
     </>
   );
 };
-              //  <DropdownButton
-              //   // id="dropdown-button-dark-example2"
-              //   variant="default"
-              
-              //  title="Log in"
-              //   // title={HandleSelect?HandleSelect:"Login"}
-              //   className="mt-4  border-bottom login-input"
-              //   onSelect={HandleSelect}
-              //   style={{ backgroundColor: bgColor }}
-              //   // className="login-input"
-              // >
-                
-              //   <Dropdown.Item
-              //     eventKey="student"
-              //     // title="student"
-              //     style={{ backgroundColor: bgColor }}
-              //   >
-              //     Student
-              //   </Dropdown.Item>
-              //   <Dropdown.Item
-              //     eventKey="teacher"
-              //     style={{ backgroundColor: bgColor }}
-              //   >
-              //     Teacher
-              //   </Dropdown.Item>
-              //   <Dropdown.Item
-              //     eventKey="admin"
-              //     style={{ backgroundColor: bgColor }}
-              //   >
-              //     Admin
-              //   </Dropdown.Item>
-              // </DropdownButton>

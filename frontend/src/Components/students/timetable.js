@@ -9,6 +9,8 @@ export const Timetable = () =>{
  const class_id = useSelector((state) => state.StudentInfo.studentinfo.class);
  const [timetable , settimetable] = useState('');
  
+ const [imagePath, setImagePath] = useState("");
+ const [error, setError] = useState("");
 
   useEffect(()=>{
     getTimeForStudent();
@@ -29,6 +31,28 @@ export const Timetable = () =>{
 
   }
 console.log(timetable)
+  
+ const userId = '123';
+
+useEffect(() => {
+  const fetchImagePath = async ( ) => {
+    try {
+      const res = await axios.get(`/upload/getImageByStudentId/${userId}`);
+      console.log(res.data)
+      setImagePath(res.data.filePath); // assuming the API response has filePath
+    } catch (err) {
+      setError("Failed to fetch image");
+    }
+  };
+  fetchImagePath();
+}, []);
+
+
+
+
+
+
+
 return (
   <>
     <Container style={{ height: "32rem" }}>
@@ -36,7 +60,6 @@ return (
         <Table>
           <thead>
             <tr>
-             
               <th>Lecture01</th>
               <th>Lecture02</th>
               <th>Lecture03</th>
@@ -49,7 +72,6 @@ return (
           </thead>
           <thead>
             <tr>
-              
               <th>08:30-09:15</th>
               <th>09:15-10:00</th>
               <th>10:00-10:45</th>
@@ -73,6 +95,18 @@ return (
             </tr>
           </tbody>
         </Table>
+      </Row>
+
+      <Row>
+        {imagePath ? (
+          <img
+            src={`${imagePath}`} // Adjust the path as needed
+            alt="Fetched from backend"
+            style={{ width: "300px", marginTop: "10px" }}
+          />
+        ) : (
+          <p>{error || "No image to display"}</p>
+        )}
       </Row>
     </Container>
   </>

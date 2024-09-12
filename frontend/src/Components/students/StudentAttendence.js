@@ -53,19 +53,21 @@ export const StudentAttendence = () => {
           password: StudentData.password,
         },
       });
+      console.log(response.data)
       setStudentAttData(response.data);
     } catch (err) {
       console.log(err);
     }
   }
-
+  
+  console.log("attendence data is:",StudentAttData)
   function calculateAttendance() {
     let presentCount = 0;
     let absentCount = 0;
 
     const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1);
     daysInMonth.forEach((e) => {
-      const dayKey = `Day${e < 10 ? `0${e}` : e}`;
+      const dayKey = `Day${e < 10 ? `${e}` : e}`;
       const status = StudentAttData[0]?.[dayKey];
       if (e <= day) {
         if (status === 1) {
@@ -83,7 +85,7 @@ export const StudentAttendence = () => {
   }
 
   function getstatusforDay(e) {
-    const dayKey = `Day${e < 10 ? `0${e}` : e}`;
+    const dayKey = `Day${e < 10 ? `${e}` : e}`;
     const status = StudentAttData[0]?.[dayKey];
     if (e <= day) {
       if (status === null) {

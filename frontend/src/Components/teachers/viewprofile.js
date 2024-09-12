@@ -1,51 +1,59 @@
-// import Button from 'react-bootstrap/Button';
-// import Col from 'react-bootstrap/Col';
+
 import Form from 'react-bootstrap/Form';
-// import Row from 'react-bootstrap/Row';
 import { Container, Row, Col } from "react-bootstrap";
-// import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import profileimage from "../../Assets/mathteacher.jpg"
+import profileimage from "../../Assets/chemistryteacher.jpg"
 import { useSelector } from 'react-redux';
-// import { useState } from 'react';
-// import { useSelector } from "react-redux";
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useEffect } from "react";
+import axios from "axios";
+
+
 
 export function ViewProfile() {
-//  const [login,setLogin] =useState(true)
-//   const isValid = useSelector((state) => state.LogIn.isValid);
   const Data = useSelector((state) => state.TeacherInfo.info);
-  
-  // const navigate = useNavigate();
-  // useEffect(()=>{
-  //   setLogin(isValid)
-  
-  //   if(!login)
-  //   navigate("/login");
-  // },[login,navigate,isValid])
-
+ 
 console.log(Data);
 
+  const [imagePath, setImagePath] = useState("");
+  const [error, setError] = useState("");
+  const userId = Data?Data.user_name:"";
+   useEffect(() => {
+     const fetchImagePath = async () => {
+       try {
+         const res = await axios.get(`/upload/getImageByStudentId/${userId}`);
+         console.log(res.data);
+         setImagePath(res.data.filePath); // assuming the API response has filePath
+       } catch (err) {
+         setError("Failed to fetch image");
+       }
+     };
+     fetchImagePath();
+   }, [imagePath]);
+
+   
+
   return (
-    <Container className="text-black p-5">
+    <Container className="text-black p-5 icon">
       <Row>
         <Col md="6">
-          <Card>
-            <Card.Img variant="top" src={profileimage} />
+          <Card className="icon">
+            <Card.Img variant="top" src={imagePath} />
             <Card.Body>
-              <Card.Title>{Data ? `${Data.first_name} ${Data.last_name}` : ""}</Card.Title>
+              <Card.Title>
+                {Data ? `${Data.first_name} ${Data.last_name}` : ""}
+              </Card.Title>
               <Card.Text>
-                {Data ? Data.assigned_subjects : ""} teacher
+                {Data ? Data.assigned_subjects : ""} Teacher
               </Card.Text>
             </Card.Body>
           </Card>
         </Col>
         <Col>
-          <Form>
+          <Form className="icon">
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>username</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="text"
                   value={Data ? Data.user_name : ""}
@@ -56,7 +64,7 @@ console.log(Data);
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="password"
+                  type="text"
                   placeholder="Password"
                   value={Data ? Data.password : ""}
                   disabled
@@ -67,18 +75,18 @@ console.log(Data);
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter Email"
                 value={Data ? Data.email : ""}
                 disabled
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGridAddress1">
-              <Form.Label>Address</Form.Label>
+              <Form.Label>Correspondence Address</Form.Label>
               <Form.Control value={Data ? Data.address : ""} disabled />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridAddress2">
-              <Form.Label>Address 2</Form.Label>
+              <Form.Label>Permanent Address</Form.Label>
               <Form.Control value={Data ? Data.address : ""} disabled />
             </Form.Group>
 
@@ -91,19 +99,18 @@ console.log(Data);
                 />
               </Form.Group>
 
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Aadhar number </Form.Label>
-                <Form.Control value={Data ? Data.aadhar_number : ""} disabled />
-              </Form.Group>
-
               <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>assigned_subject</Form.Label>
+                <Form.Label>Assigned Subject</Form.Label>
                 <Form.Control
                   value={Data ? Data.assigned_subjects : ""}
                   disabled
                 />
               </Form.Group>
             </Row>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Aadhar number </Form.Label>
+              <Form.Control value={Data ? Data.aadhar_number : ""} disabled />
+            </Form.Group>
             <Form.Group as={Col} controlId="formDob">
               <Form.Label>DOB</Form.Label>
               <Form.Control value={Data ? Data.date_of_birth : ""} disabled />

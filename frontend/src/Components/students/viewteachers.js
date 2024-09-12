@@ -25,24 +25,24 @@ export const ViewTeachers = ()=>{
        getAllTeachers();
      }
 
-  })
+  },[])
 
 
 
 
 
 
-   const teacherData = [
-     { image: image1, name: "Renu", sub: "Mathmatics", contact: 9992367123 },
-     { image: image2, name: "Rahul", sub: "Physics", contact: 9992367123 },
-     { image: image3, name: "Divya", sub: "Chemistry", contact: 9992367123 },
-     {
-       image: image4,
-       name: "Aasha",
-       sub: "Biology",
-       contact: 9992367123,
-     },
-   ];
+  //  const teacherData = [
+  //    { image: image1, name: "Renu", sub: "Mathmatics", contact: 9992367123 },
+  //    { image: image2, name: "Rahul", sub: "Physics", contact: 9992367123 },
+  //    { image: image3, name: "Divya", sub: "Chemistry", contact: 9992367123 },
+  //    {
+  //      image: image4,
+  //      name: "Aasha",
+  //      sub: "Biology",
+  //      contact: 9992367123,
+  //    },
+  //  ];
 
     return(
         <>

@@ -6,8 +6,17 @@ import { FaUserCheck } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { IoIosHome } from "react-icons/io";
 import { modal } from "../reusable/modal";
+import { FaRupeeSign } from "react-icons/fa";
+// import { TbCoinRupee } from "react-icons/fa";
+import { TbCoinRupee } from "react-icons/tb";
  import { IoCalendarNumber } from "react-icons/io5";
 import { Link, Outlet } from "react-router-dom";
+import { GoHistory } from "react-icons/go";
+import { MdOutlineDriveFolderUpload } from "react-icons/md";
+
+
+
+
 export const StudentSideBar = () => {
   // function handleLogout(){
   //   // <modal />
@@ -34,17 +43,28 @@ export const StudentSideBar = () => {
                 >
                   <h5>
                     {" "}
-                    <IoIosHome className="mx-2" />
+                    <IoIosHome
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
                     Home
                   </h5>
                 </Nav.Link>
 
-                <Nav.Link eventKey="link-2" className="text-white">
+                <Nav.Link
+                  as={Link}
+                  to="/student/uploadimage"
+                  eventKey="link-2"
+                  className="text-white"
+                >
                   {" "}
                   <h5>
                     {" "}
-                    <IoSettings className="mx-2" />
-                    setting
+                    <MdOutlineDriveFolderUpload
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
+                    Upload
                   </h5>
                 </Nav.Link>
                 <Nav.Link
@@ -56,8 +76,11 @@ export const StudentSideBar = () => {
                   {" "}
                   <h5>
                     {" "}
-                    <FaUserCheck className="mx-2" />
-                    Attendence
+                    <FaUserCheck
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
+                    Attendance
                   </h5>
                 </Nav.Link>
                 <Nav.Link
@@ -69,10 +92,47 @@ export const StudentSideBar = () => {
                   <h5>
                     {" "}
                     {/* <MdDarkMode className="mx-2" /> */}
-                    <IoCalendarNumber className="mx-2" />
+                    <IoCalendarNumber
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
                     Calender
                   </h5>
                 </Nav.Link>
+
+                <Nav.Link
+                  as={Link}
+                  to="/student/payment"
+                  eventKey="disabled"
+                  className="text-white"
+                >
+                  <h5>
+                    {" "}
+                    {/* <MdDarkMode className="mx-2" /> */}
+                    <FaRupeeSign
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
+                    Pay Fees
+                  </h5>
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/student/feestatus"
+                  eventKey="disabled"
+                  className="text-white"
+                >
+                  <h5>
+                    {" "}
+                    {/* <MdDarkMode className="mx-2" /> */}
+                    <GoHistory
+                      style={{ position: "relative", bottom: "0.1rem" }}
+                      className="mx-2"
+                    />
+                    Fee Status
+                  </h5>
+                </Nav.Link>
+
                 {/* <br />
                 <br />
                 <br />
@@ -101,7 +161,7 @@ export const StudentSideBar = () => {
             className="px-3"
             style={{
               backgroundColor: "white",
-              height: "31.9rem",
+              height: "32.4rem",
               overflow: "scroll",
             }}
           >

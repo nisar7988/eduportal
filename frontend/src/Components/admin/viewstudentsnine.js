@@ -6,10 +6,15 @@ import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import CloseButton from "react-bootstrap/CloseButton";
 import { useNavigate } from "react-router-dom";
+import Alerts from "../reusable/alerts";
 export const StudentsofNineclass = () => {
   const [studentsdata, setstudentsdata] = useState([]);
   //function for get all the students information which is in 6th class.
   const navigate = useNavigate();
+   
+   const [alertColor, setAlertColor] = useState("");
+   const [alertText, setAlertText] = useState("");
+   const [showAlert, setShowAlert] = useState(false);
   async function getstudentinfo() {
     try {
       const response = await axios.get("/student/getclasswisestudents", {
@@ -30,7 +35,7 @@ export const StudentsofNineclass = () => {
   const admininfo = useSelector((state) => state.AdminInfo.admininfo);
   useEffect(() => {
     getstudentinfo();
-  }, []);
+  }, [showAlert]);
 
   // Function to handle button click
   const handleButtonClick = (student) => {
@@ -40,6 +45,14 @@ export const StudentsofNineclass = () => {
     console.log(student.class);
     
    removeStudent(student);
+   setShowAlert(true);
+   setAlertColor("success");
+   setAlertText("Student Remove Successfully!");
+   setTimeout(() => {
+     setShowAlert(false);
+   }, 3000);
+
+
 
   };
 
@@ -53,6 +66,12 @@ export const StudentsofNineclass = () => {
      }
      catch(error){
       console.log(error);
+         setShowAlert(true);
+         setAlertColor("danger");
+         setAlertText("Error to Remove Student !");
+         setTimeout(() => {
+           setShowAlert(false);
+         }, 3000);
      }
   }
 
@@ -85,7 +104,7 @@ export const StudentsofNineclass = () => {
     },
     {
       dataField: "user_name",
-      text: "user_name",
+      text: "User Name",
     },
     {
       dataField: "password",
@@ -93,7 +112,7 @@ export const StudentsofNineclass = () => {
     },
     {
       dataField: "father_name",
-      text: "father_name",
+      text: "Father Name",
     },
     {
       dataField: "Remove student",
@@ -101,8 +120,8 @@ export const StudentsofNineclass = () => {
       formatter: (cellContent, row) => {
         return (
           <button
-            className="btn btn-primary"
-            style={{ backgroundColor: "rgba(0,187,167,255)", border: "none" }}
+            className="btn btn-primary bg-danger"
+            style={{ border: "none" }}
             onClick={() => handleButtonClick(row)}
           >
             Remove
@@ -116,24 +135,27 @@ export const StudentsofNineclass = () => {
      navigate("/admin/viewstudents");
    }
   return (
-    <Container className="text-black bg-success" fluid>
+    <>
       <Row>
         <AdminNavBar />
       </Row>
-      <Row className="my-2">
-        <h3 className="w-75"> Welcome {admininfo.name}</h3>
-        <CloseButton
-          style={{ position: "relative", left: "17rem" }}
-          onClick={clickback}
-        />
-      </Row>
-      <Row>
-        <BootstrapTable
-          keyField="aadhar_numbe"
-          data={studentsdata}
-          columns={columns}
-        />
-      </Row>
-    </Container>
+      {showAlert ? <Alerts color={alertColor} text={alertText} /> : ""}
+      <Container className="text-black " fluid>
+        <Row className="my-2">
+          <h3 className="w-75"> Welcome {admininfo.name}</h3>
+          <CloseButton
+            style={{ position: "relative", left: "17rem" }}
+            onClick={clickback}
+          />
+        </Row>
+        <Row>
+          <BootstrapTable
+            keyField="aadhar_numbe"
+            data={studentsdata}
+            columns={columns}
+          />
+        </Row>
+      </Container>
+    </>
   );
 };

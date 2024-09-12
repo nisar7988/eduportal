@@ -8,9 +8,13 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Alerts from "../reusable/alerts";
 
 export function MarkAttendence() {
   const Data1 = useSelector((state) => state.TeacherInfo.info);
+  const [alertColor, setAlertColor] = useState("");
+  const [alertText, setAlertText] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
   const teacher_id = Data1 ? Data1.employee_id : "";
   const teacher_name = Data1 ? Data1.first_name + " " + Data1.last_name : "";
   const [studentData, setStudentData] = useState([]);
@@ -20,7 +24,8 @@ export function MarkAttendence() {
   // const checkboxRef = useRef(null);
   // const elementRef = useRef(null);
   const elementRefs = useRef([]);
-  const [Messege, setMessge]= useState('');
+  const class_id = Data1 ? Data1.assigned_classes : "";
+  const [Messege, setMessge] = useState("");
   const date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
@@ -35,6 +40,8 @@ export function MarkAttendence() {
         params: { class_id: Data1.assigned_classes, daye: day },
       });
       setstudentattendence(res.data);
+      console.log(res);
+      console.log(studentAttendence);
     } catch (err) {
       console.log("error");
       // setMessge("you don't have a class yet");
@@ -72,7 +79,7 @@ export function MarkAttendence() {
       GetStudentData();
     }
   }, [teacher_id]);
-
+ 
   function handleStatusChange(e, student_id) {
     const status = e.target.checked;
 
@@ -82,93 +89,112 @@ export function MarkAttendence() {
     );
 
     if (existingIndex !== -1) {
-      // Update the status for the existing student_id
       const updatedData = [...attendanceData];
       updatedData[existingIndex].status = status;
       updatedData[existingIndex].day = day;
       setAttendanceData(updatedData);
     } else {
-      // Add a new entry for the student_id
       setAttendanceData([...attendanceData, { student_id, status, day }]);
     }
   }
-   function ab(){
-    console.log("click")
-   }
+  // function ab() {
+  //   console.log("click");
+  // }
   async function handleSubmit() {
     try {
       const res = await axios.post("/student/addattendence", attendanceData);
-      alert("are you sure ? ");
+  
       setissubmit(true);
-      navigate("/teacher");
+      setShowAlert(true);
+      setAlertColor("success");
+      setAlertText("Attendence Mark Successfully!");
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 2000);
+      // navigate('/teacher/')
     } catch (err) {
+       setShowAlert(true);
+       setAlertColor("danger");
+       setAlertText("Error to Mark Attendence !");
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 2000);
       console.log(err);
     }
   }
 
   return (
-    <Container className="text-black">
-      <Row>
-        <Col md="10">
-          <p>{teacher_name}</p>
-        </Col>
-        <Col>
-          <b>Date</b>: {currentDate}
-        </Col>
-      </Row>
-      <Row>
-        <Table striped="columns">
-          <thead>
-            <tr className="text-center">
-              <th>id</th>
-              <th>student_id</th>
-              <th>Student Name</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-         
-          <tbody className="text-center">
-            {studentData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.roll_number}</td>
-                <td>{item.student_id}</td>
-                <td>{item.name}</td>
-                <td>
-                  <Form.Check>
-                    <Form.Check.Input
-                      // ref={elementRef}
-                      ref={(el) => (elementRefs.current[index] = el)}
-                      type="checkbox"
-                      isValid
-                      checked={Valid(item.student_id)}
-                      onChange={(e) => handleStatusChange(e, item.student_id)}
-                      onClick={(e) => {
-                        const val = elementRefs.current[index];
-                        if (Valid(item.student_id)) {
-                          console.log("checked");
-                          console.log(val.nextElementSibling.textContent);
-                          val.style.backgroundColor = "red";
-                        } else {
-                          console.log("false");
-                          val.style.backgroundColor = "green";
-                        }
-                      }}
-                      disabled={issubmit}
-                    />
-                    <span></span>
-                  </Form.Check>
-                </td>
+    <>
+      {showAlert ? <Alerts color={alertColor} text={alertText} /> : ""}
+      <Container className="text-black">
+        <Row className="my-3">
+          <Col md="10">
+            {" "}
+            <b>class</b> : {class_id}{" "}
+          </Col>
+          <Col>
+            <b>Date</b>: {currentDate}
+          </Col>
+        </Row>
+        <Row>
+          <Table striped="columns">
+            <thead>
+              <tr className="text-center">
+                <th>Roll No.</th>
+                {/* <th>Student id</th> */}
+                <th>Student Name</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Row>
-      <Row>
-        <Col>
-          <button onClick={handleSubmit}>Submit</button>
-        </Col>
-      </Row>
-    </Container>
+            </thead>
+
+            <tbody className="text-center">
+              {studentData.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.roll_number}</td>
+                  {/* <td>{item.student_id}</td> */}
+                  <td>{item.name}</td>
+                  <td>
+                    <Form.Check>
+                      <Form.Check.Input
+                        // ref={elementRef}
+                        ref={(el) => (elementRefs.current[index] = el)}
+                        type="checkbox"
+                        isValid
+                        checked={Valid(item.student_id)}
+                        onClick={(e) => {
+                          const val = elementRefs.current[index];
+                          if (Valid(item.student_id)) {
+                            console.log("checked");
+                            console.log(val.nextElementSibling.textContent);
+                            val.style.backgroundColor = "red";
+                          } else {
+                            console.log("false");
+                            val.style.backgroundColor = "green";
+                          }
+                        }}
+                        onChange={(e) => handleStatusChange(e, item.student_id)}
+                        // disabled={issubmit}
+                      />
+                      <span></span>
+                    </Form.Check>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Row>
+        <Row>
+          <Col>
+            <button
+              onClick={handleSubmit}
+              className="border-0 p-2 text-white rounded button"
+            >
+              Submit
+            </button>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
