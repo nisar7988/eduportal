@@ -2,8 +2,7 @@ const { Cashfree } = require("cashfree-pg");
 const crypto = require("crypto");
 const { AddingFee } = require("../services/paymentServices");
 Cashfree.XClientId = "TEST10301392d7e471c3f5af0b3f132429310301";
-Cashfree.XClientSecret =
-  "cfsk_ma_test_5e5d471b9b4fbe727ad894d4d9efc84e_52c8c6e2";
+// Cashfree.XClientSecret ="cfsk_ma_test_5e5d471b9b4fbe727ad894d4d9efc84e_52c8c6e2";
 Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 function generateOrderId() {
